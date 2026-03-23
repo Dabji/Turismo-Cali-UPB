@@ -7,46 +7,45 @@ export default {
   theme: {
     extend: {
       colors: {
-        primary: {
-          50: '#eff6ff',
-          100: '#dbeafe',
-          200: '#bfdbfe',
-          300: '#93c5fd',
-          400: '#60a5fa',
-          500: '#0F4C81',
-          600: '#0D3F6B',
-          700: '#0A3256',
-          800: '#082640',
-          900: '#05192B',
-        },
-        secondary: {
-          50: '#f0fdf4',
-          100: '#dcfce7',
-          200: '#bbf7d0',
-          300: '#86efac',
-          400: '#4ade80',
-          500: '#2E8B57',
-          600: '#25724A',
-          700: '#1C593C',
-          800: '#14402F',
-          900: '#0B2721',
-        },
-        accent: {
-          50: '#fffbeb',
-          100: '#fef3c7',
-          200: '#fde68a',
-          300: '#fcd34d',
-          400: '#fbbf24',
-          500: '#D4A017',
-          600: '#B08614',
-          700: '#8C6B10',
-          800: '#68500C',
-          900: '#443508',
-        },
+        /* Identidad Ruta 7 Ríos */
+        navy:   '#181E4B',
+        cream:  '#FFF1DA',
+        coral:  '#DF6951',
+        ash:    '#5E6282',
+        lienzo: '#FFFFFF',
       },
       fontFamily: {
-        sans: ['Inter', 'system-ui', 'sans-serif'],
-        heading: ['Poppins', 'system-ui', 'sans-serif'],
+        volkhov: ['Volkhov', 'serif'],
+        poppins: ['Poppins', 'sans-serif'],
+      },
+      keyframes: {
+        'fade-in-up': {
+          '0%':   { opacity: '0', transform: 'translateY(30px)' },
+          '100%': { opacity: '1', transform: 'translateY(0)' },
+        },
+        'fade-in': {
+          '0%':   { opacity: '0' },
+          '100%': { opacity: '1' },
+        },
+        'slide-in-left': {
+          '0%':   { opacity: '0', transform: 'translateX(-40px)' },
+          '100%': { opacity: '1', transform: 'translateX(0)' },
+        },
+        'slide-in-right': {
+          '0%':   { opacity: '0', transform: 'translateX(40px)' },
+          '100%': { opacity: '1', transform: 'translateX(0)' },
+        },
+        'bounce-gentle': {
+          '0%, 100%': { transform: 'translateY(0)' },
+          '50%':      { transform: 'translateY(-6px)' },
+        },
+      },
+      animation: {
+        'fade-in-up':     'fade-in-up 0.7s ease-out forwards',
+        'fade-in':        'fade-in 0.6s ease-out forwards',
+        'slide-in-left':  'slide-in-left 0.7s ease-out forwards',
+        'slide-in-right': 'slide-in-right 0.7s ease-out forwards',
+        'bounce-gentle':  'bounce-gentle 2s ease-in-out infinite',
       },
     },
   },
