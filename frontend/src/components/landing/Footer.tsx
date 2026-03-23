@@ -3,7 +3,7 @@
  * Fondo Azul Volcánico oscuro con logo, descripción, enlaces rápidos,
  * contacto e iconos de redes sociales.
  */
-import logoFooter from '../../images/logoFooter.png';
+import logoFooter from '../../images/logoFooterColor2.png';
 
 const QUICK_LINKS = [
   { label: 'Inicio', href: '#inicio' },
