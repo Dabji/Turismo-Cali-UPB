@@ -14,6 +14,7 @@ const EXPERIENCES = [
   {
     image: lineaCultural,
     title: 'Línea Cultural',
+    alt: 'Iglesia colonial histórica representando la línea cultural de turismo en Cali',
     description:
       'Sumérgete en la rica historia y patrimonio de Cali, una ciudad que respira tradición en cada esquina.',
     bullets: [
@@ -31,6 +32,7 @@ const EXPERIENCES = [
   {
     image: lineaNaturaleza,
     title: 'Línea Naturaleza',
+    alt: 'Sendero ecológico rodeado de vegetación tropical en los alrededores de Cali',
     description:
       'Descubre la biodiversidad única que hace de Cali un paraíso natural en el corazón del Valle del Cauca.',
     bullets: [
@@ -48,6 +50,7 @@ const EXPERIENCES = [
   {
     image: lineaEntretenimiento,
     title: 'Línea Entretenimiento',
+    alt: 'Espectáculo nocturno de salsa y música en vivo en Cali, la capital de la salsa',
     description:
       'Vive la energía de Cali, donde cada noche es una celebración y la salsa es el idioma universal.',
     bullets: [
@@ -65,6 +68,7 @@ const EXPERIENCES = [
   {
     image: lineaGastronomica,
     title: 'Línea Gastronómica',
+    alt: 'Plato típico vallecaucano servido en restaurante tradicional de Cali',
     description:
       'Saborea el Valle del Cauca a través de platos que cuentan historias de tradición y sabor único.',
     bullets: [
@@ -83,14 +87,14 @@ const EXPERIENCES = [
 
 export default function ExperiencesSection() {
   return (
-    <section id="experiencias" className="bg-cream/40 py-20 px-4">
+    <section id="experiencias" aria-labelledby="experiencias-titulo" className="bg-cream/40 py-20 px-4">
       <div className="max-w-6xl mx-auto">
         {/* ── Encabezado ── */}
         <div className="text-center mb-14">
           <span className="font-poppins text-coral text-sm font-semibold tracking-widest uppercase">
             Explora
           </span>
-          <h2 className="font-volkhov text-navy text-3xl sm:text-4xl md:text-5xl font-bold mt-2">
+          <h2 id="experiencias-titulo" className="font-volkhov text-navy text-3xl sm:text-4xl md:text-5xl font-bold mt-2">
             Experiencias Turísticas
           </h2>
           <p className="mt-4 text-ash font-poppins max-w-2xl mx-auto text-sm sm:text-base leading-relaxed">

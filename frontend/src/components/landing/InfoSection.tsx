@@ -4,13 +4,13 @@
  */
 export default function InfoSection() {
   return (
-    <section id="nosotros" className="bg-cream py-20 px-4">
+    <section id="nosotros" aria-labelledby="nosotros-titulo" className="bg-cream py-20 px-4">
       <div className="max-w-6xl mx-auto text-center">
         {/* ── Encabezado ── */}
         <span className="font-poppins text-coral text-sm font-semibold tracking-widest uppercase">
           Descubre
         </span>
-        <h2 className="font-volkhov text-navy text-3xl sm:text-4xl md:text-5xl font-bold mt-2">
+        <h2 id="nosotros-titulo" className="font-volkhov text-navy text-3xl sm:text-4xl md:text-5xl font-bold mt-2">
           ¿Qué es Ruta 7 Ríos?
         </h2>
         <p className="mt-4 text-ash font-poppins max-w-2xl mx-auto text-sm sm:text-base leading-relaxed">

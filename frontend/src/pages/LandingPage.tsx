@@ -15,13 +15,15 @@ export default function LandingPage() {
   return (
     <>
       <Navbar />
-      <Hero />
-      <InfoSection />
-      <ValuesBanner />
-      <ExperiencesSection />
-      <DestinationsSection />
-      <IdentitySection />
-      <ContactBanner />
+      <main className="flex-grow">
+        <Hero />
+        <InfoSection />
+        <ValuesBanner />
+        <ExperiencesSection />
+        <DestinationsSection />
+        <IdentitySection />
+        <ContactBanner />
+      </main>
       <Footer />
     </>
   );
