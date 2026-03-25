@@ -24,6 +24,9 @@ export default function Footer() {
             <img
               src={logoFooter}
               alt="Ruta 7 Ríos"
+              width={180}
+              height={48}
+              loading="lazy"
               className="h-12 w-auto mb-5 object-contain"
             />
             <p className="font-poppins text-white/60 text-sm leading-relaxed mb-6">

@@ -53,11 +53,6 @@ export default function LoginPage() {
 
         {/* Contenido centrado */}
         <div className="relative z-10 text-center px-10 animate-fade-in">
-          <img
-            src={logoHeader}
-            alt="Ruta 7 Ríos"
-            className="h-20 w-auto mx-auto mb-8 drop-shadow-lg"
-          />
           <p className="font-volkhov text-white text-2xl lg:text-3xl italic font-bold leading-snug drop-shadow-md">
             "Salsa, sabor y tradición<br />en un solo latido"
           </p>
@@ -92,9 +87,9 @@ export default function LoginPage() {
         {/* ── Formulario centrado ── */}
         <div className="flex-1 flex items-center justify-center px-6 pb-10">
           <div className="w-full max-w-md animate-fade-in-up">
-            {/* Logo móvil (solo se muestra en pantallas pequeñas) */}
-            <div className="md:hidden flex justify-center mb-8">
-              <img src={logoHeader} alt="Ruta 7 Ríos" className="h-14 w-auto" />
+            {/* Logo del consorcio */}
+            <div className="flex justify-center mb-6">
+              <img src={logoHeader} alt="Ruta 7 Ríos" className="h-16 w-auto object-contain" />
             </div>
 
             <h1 className="font-volkhov text-navy text-3xl sm:text-4xl font-bold">
