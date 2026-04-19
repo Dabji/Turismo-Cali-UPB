@@ -10,8 +10,17 @@ const DashboardPage = lazy(() => import('./pages/DashboardPage'));
 /** Spinner de carga mínimo mientras se resuelven los chunks */
 function Loading() {
   return (
-    <div className="min-h-screen flex items-center justify-center bg-cream">
-      <div className="w-10 h-10 border-4 border-coral border-t-transparent rounded-full animate-spin" />
+    <div
+      className="min-h-screen flex items-center justify-center bg-cream"
+      role="status"
+      aria-live="polite"
+      aria-busy="true"
+    >
+      <div
+        className="w-10 h-10 border-4 border-coral border-t-transparent rounded-full animate-spin"
+        aria-hidden="true"
+      />
+      <span className="sr-only">Cargando...</span>
     </div>
   );
 }

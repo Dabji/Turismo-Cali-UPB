@@ -110,11 +110,13 @@ export class LdapService {
 
             res.on('searchEntry', (entry) => {
               userDn = entry.dn.toString();
-              const attrs = entry.pojo.attributes;
+              const attrs = entry.attributes ?? [];
 
               const getAttribute = (name: string): string => {
-                const attr = attrs.find((a) => a.type === name);
-                return attr && attr.values.length > 0 ? attr.values[0] : '';
+                const attr = attrs.find((a: ldap.Attribute) => a.type === name);
+                const values = attr?.values ?? [];
+                const first = values.length > 0 ? values[0] : '';
+                return typeof first === 'string' ? first : String(first);
               };
 
               ldapUser = {

@@ -1,5 +1,5 @@
 import { Request, Response } from 'express';
-import jwt from 'jsonwebtoken';
+import jwt, { type SignOptions } from 'jsonwebtoken';
 import bcrypt from 'bcryptjs';
 import { config } from '../config/env';
 import prisma from '../config/database';
@@ -165,9 +165,16 @@ export class AuthController {
       role: user.role,
     };
 
-    return jwt.sign(payload, config.jwt.secret, {
-      expiresIn: config.jwt.expiresIn as string,
-    });
+    const secret = config.jwt.secret;
+    if (!secret) {
+      throw new Error('JWT secret is not configured');
+    }
+
+    const options: SignOptions = {
+      expiresIn: config.jwt.expiresIn as SignOptions['expiresIn'],
+    };
+
+    return jwt.sign(payload, secret, options);
   }
 }
 

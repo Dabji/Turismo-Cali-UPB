@@ -16,8 +16,7 @@ export default function Hero() {
           width={1920}
           height={1080}
           loading="eager"
-          // @ts-ignore – lowercase required so the DOM receives fetchpriority and avoids React warning
-          fetchpriority="high"
+          fetchPriority="high"
           className="w-full h-full object-cover"
         />
         {/* Overlay oscuro para legibilidad */}

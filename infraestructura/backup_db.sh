@@ -99,6 +99,8 @@ log_info "Archivo destino: $BACKUP_FILE_DB"
 
 SECONDS=0
 
+# Desactivar errexit temporalmente para capturar el estado del pipeline
+set +e
 mysqldump \
     --host="$DB_HOST" \
     --port="$DB_PORT" \
@@ -115,16 +117,19 @@ mysqldump \
     --lock-tables=false \
     "$DB_NAME" | gzip > "$BACKUP_FILE_DB"
 
-BACKUP_DB_STATUS=$?
+BACKUP_DB_STATUS=${PIPESTATUS[0]}
+GZIP_STATUS=${PIPESTATUS[1]}
+set -e
+
 DB_DURATION=$SECONDS
 
-if [ $BACKUP_DB_STATUS -eq 0 ]; then
+if [ $BACKUP_DB_STATUS -eq 0 ] && [ $GZIP_STATUS -eq 0 ]; then
     BACKUP_DB_SIZE=$(du -h "$BACKUP_FILE_DB" | cut -f1)
     log_info "Backup de BD completado exitosamente."
     log_info "Tamaño: $BACKUP_DB_SIZE | Duración: ${DB_DURATION}s"
     chmod 600 "$BACKUP_FILE_DB"
 else
-    log_error "Error al realizar el backup de BD (código: $BACKUP_DB_STATUS)."
+    log_error "Error al realizar el backup de BD (mysqldump=$BACKUP_DB_STATUS, gzip=$GZIP_STATUS)."
     [ -f "$BACKUP_FILE_DB" ] && rm -f "$BACKUP_FILE_DB"
     exit 1
 fi
@@ -149,17 +154,16 @@ log_info "--- FASE 2: Backup de Configuración Nginx ---"
 if [ -d "$NGINX_CONFIG_DIR" ]; then
     log_info "Respaldando $NGINX_CONFIG_DIR → $BACKUP_FILE_NGINX"
 
-    tar -czf "$BACKUP_FILE_NGINX" \
+    if tar -czf "$BACKUP_FILE_NGINX" \
         -C / \
         "$(echo "$NGINX_CONFIG_DIR" | sed 's|^/||')" \
-        2>/dev/null
-
-    if [ $? -eq 0 ]; then
+        2>/dev/null; then
         BACKUP_NGINX_SIZE=$(du -h "$BACKUP_FILE_NGINX" | cut -f1)
         log_info "Backup de Nginx completado. Tamaño: $BACKUP_NGINX_SIZE"
         chmod 600 "$BACKUP_FILE_NGINX"
     else
         log_warn "Error al comprimir configuración de Nginx. Continuando..."
+        [ -f "$BACKUP_FILE_NGINX" ] && rm -f "$BACKUP_FILE_NGINX"
     fi
 else
     log_warn "Directorio $NGINX_CONFIG_DIR no encontrado. Omitiendo backup de Nginx."
@@ -177,17 +181,16 @@ log_info "--- FASE 3: Backup de Configuraciones del Proyecto ---"
 if [ -d "$PROJECT_CONFIG_DIR" ]; then
     log_info "Respaldando $PROJECT_CONFIG_DIR → $BACKUP_FILE_PROJECT"
 
-    tar -czf "$BACKUP_FILE_PROJECT" \
+    if tar -czf "$BACKUP_FILE_PROJECT" \
         -C "$(dirname "$PROJECT_CONFIG_DIR")" \
         "$(basename "$PROJECT_CONFIG_DIR")" \
-        2>/dev/null
-
-    if [ $? -eq 0 ]; then
+        2>/dev/null; then
         BACKUP_PROJECT_SIZE=$(du -h "$BACKUP_FILE_PROJECT" | cut -f1)
         log_info "Backup de configuraciones del proyecto completado. Tamaño: $BACKUP_PROJECT_SIZE"
         chmod 600 "$BACKUP_FILE_PROJECT"
     else
         log_warn "Error al comprimir configuraciones del proyecto. Continuando..."
+        [ -f "$BACKUP_FILE_PROJECT" ] && rm -f "$BACKUP_FILE_PROJECT"
     fi
 else
     log_warn "Directorio $PROJECT_CONFIG_DIR no encontrado. Omitiendo backup de proyecto."
@@ -224,8 +227,16 @@ log_info "========================================="
 log_info "  Fecha         : $DATE"
 log_info "  Base de datos : $DB_NAME"
 log_info "  Dump BD       : $(basename "$BACKUP_FILE_DB") ($BACKUP_DB_SIZE)"
-log_info "  Config Nginx  : $(basename "${BACKUP_FILE_NGINX:-N/A}") (${BACKUP_NGINX_SIZE:-omitido})"
-log_info "  Config Proy.  : $(basename "${BACKUP_FILE_PROJECT:-N/A}") (${BACKUP_PROJECT_SIZE:-omitido})"
+if [ -f "$BACKUP_FILE_NGINX" ]; then
+    log_info "  Config Nginx  : $(basename "$BACKUP_FILE_NGINX") (${BACKUP_NGINX_SIZE:-desconocido})"
+else
+    log_info "  Config Nginx  : omitido"
+fi
+if [ -f "$BACKUP_FILE_PROJECT" ]; then
+    log_info "  Config Proy.  : $(basename "$BACKUP_FILE_PROJECT") (${BACKUP_PROJECT_SIZE:-desconocido})"
+else
+    log_info "  Config Proy.  : omitido"
+fi
 log_info "  Duración BD   : ${DB_DURATION} segundos"
 log_info "  Total BD      : $TOTAL_DB_BACKUPS backup(s)"
 log_info "  Total Configs : $TOTAL_CONFIG_BACKUPS backup(s)"

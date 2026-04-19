@@ -40,21 +40,21 @@ jobs:
           JWT_SECRET: ${{ secrets.JWT_SECRET }}
         run: |
           cd backend
+          DB_PASSWORD_ENCODED="$(node -p "encodeURIComponent(process.env.DB_PASSWORD)")"
           cat > .env <<'STATIC_EOF'
           PORT=4000
           NODE_ENV=production
           CORS_ORIGIN=https://turismocali.local
           FRONTEND_URL=https://turismocali.local
-          DATABASE_URL=mysql://turismo_user:PLACEHOLDER@localhost:3306/turismo_cali_db
           LDAP_URL=ldap://10.0.3.10:389
           LDAP_BIND_DN=cn=admin,dc=ruta7rios,dc=local
           LDAP_SEARCH_BASE=ou=users,dc=ruta7rios,dc=local
           JWT_EXPIRES_IN=8h
           STATIC_EOF
           sed -i 's/^[[:space:]]*//' .env
-          sed -i "s/PLACEHOLDER/${DB_PASSWORD}/" .env
-          echo "LDAP_BIND_PASSWORD=${LDAP_BIND_PASSWORD}" >> .env
-          echo "JWT_SECRET=${JWT_SECRET}" >> .env
+          printf '%s\n' "DATABASE_URL=mysql://turismo_user:${DB_PASSWORD_ENCODED}@localhost:3306/turismo_cali_db" >> .env
+          printf '%s\n' "LDAP_BIND_PASSWORD=${LDAP_BIND_PASSWORD}" >> .env
+          printf '%s\n' "JWT_SECRET=${JWT_SECRET}" >> .env
           chmod 600 .env
 
       # --- INSTALACIÓN Y CONSTRUCCIÓN (Workspaces) ---

@@ -61,7 +61,7 @@ const DESTINATIONS: Destination[] = [
     image: boulevard,
     title: 'Bulevar del río',
     alt: 'Paseo peatonal del Bulevar del Río en Cali junto al río Cali al atardecer',
-    description: 'Espacio urbano junto al río ideal para caminar, hacer ejercicio de lúnor del urbanismo caleño.',
+    description: 'Espacio urbano junto al río ideal para caminar, hacer ejercicio y disfrutar de lo mejor del urbanismo caleño.',
     badge: 'Recreación',
     badgeColor: 'bg-purple-600',
     rating: 4.8,
