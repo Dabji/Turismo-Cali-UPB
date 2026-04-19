@@ -33,7 +33,7 @@
     "@types/compression": "^1.7.5",
     "@types/jsonwebtoken": "^9.0.5",
     "@types/bcryptjs": "^2.4.6",
-    "@types/ldapjs": "^2.2.5",
+    "@types/ldapjs": "^3.0.6",
     "@types/morgan": "^1.9.9",
     "@types/node": "^20.10.0",
     "prisma": "^5.7.0"
