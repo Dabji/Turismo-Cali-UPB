@@ -1,0 +1,177 @@
+name: "\U0001F41B Reporte de Bug / Bug Report"
+description: "Reporte un defecto encontrado en la plataforma Turismo Cali — Ruta 7 Ríos."
+title: "[BUG]: "
+labels: ["bug", "triage"]
+body:
+  # ── Header ──
+  - type: markdown
+    attributes:
+      value: |
+        ## \U0001F41E Reporte de Bug
+        Complete la información para que el equipo pueda reproducir y corregir el defecto.
+
+  # ── Severity / Severidad ──
+  - type: dropdown
+    id: severity
+    attributes:
+      label: "Severidad"
+      description: "¿Qué tan grave es el impacto del bug?"
+      options:
+        - "\U0001F534 Crítico — Sistema caído o datos corruptos"
+        - "\U0001F7E0 Alto — Funcionalidad principal rota"
+        - "\U0001F7E1 Medio — Funcionalidad secundaria afectada"
+        - "\U0001F7E2 Bajo — Cosmético o mejora menor"
+    validations:
+      required: true
+
+  # ── Affected Component / Componente Afectado ──
+  - type: dropdown
+    id: component
+    attributes:
+      label: "Componente Afectado"
+      description: "¿En qué parte del sistema se presenta el bug?"
+      options:
+        - "Frontend (React / Vite)"
+        - "Backend (Express / Prisma)"
+        - "Base de Datos (MySQL)"
+        - "Autenticación (LDAP / JWT)"
+        - "Infraestructura (Nginx / Scripts)"
+        - "Red WAN / Servicios Externos"
+        - "CI/CD (GitHub Actions)"
+        - "Otro"
+    validations:
+      required: true
+
+  # ── Environment / Entorno ──
+  - type: dropdown
+    id: environment
+    attributes:
+      label: "Entorno"
+      description: "¿En qué entorno se reproduce el bug?"
+      options:
+        - "Desarrollo local"
+        - "Servidor de laboratorio"
+        - "Producción"
+    validations:
+      required: true
+
+  # ── Separator ──
+  - type: markdown
+    attributes:
+      value: |
+        ---
+        ### \U0001F50D Descripción del Bug
+
+  # ── Description / Descripción ──
+  - type: textarea
+    id: description
+    attributes:
+      label: "Descripción"
+      description: "Descripción clara y concisa del bug."
+      placeholder: "Al intentar iniciar sesión con LDAP, el sistema devuelve un error 500 en lugar de redirigir al dashboard."
+    validations:
+      required: true
+
+  # ── Steps to Reproduce / Pasos para Reproducir ──
+  - type: textarea
+    id: steps
+    attributes:
+      label: "Pasos para reproducir"
+      description: "Enumere los pasos para reproducir el comportamiento."
+      placeholder: |
+        1. Ir a /login
+        2. Ingresar credenciales LDAP válidas
+        3. Hacer clic en "Iniciar Sesión"
+        4. Observar el error en consola
+      render: text
+    validations:
+      required: true
+
+  # ── Expected Behavior / Comportamiento Esperado ──
+  - type: textarea
+    id: expected
+    attributes:
+      label: "Comportamiento esperado"
+      description: "¿Qué debería pasar?"
+      placeholder: "El usuario debería ser autenticado y redirigido al dashboard correspondiente."
+    validations:
+      required: true
+
+  # ── Actual Behavior / Comportamiento Actual ──
+  - type: textarea
+    id: actual
+    attributes:
+      label: "Comportamiento actual"
+      description: "¿Qué pasa en su lugar?"
+      placeholder: "El sistema muestra un error 500 y se registra 'LDAP connection refused' en los logs del backend."
+    validations:
+      required: true
+
+  # ── Separator ──
+  - type: markdown
+    attributes:
+      value: |
+        ---
+        ### \U0001F4CB Contexto Técnico
+
+  # ── Browser / Navegador ──
+  - type: input
+    id: browser
+    attributes:
+      label: "Navegador y versión"
+      placeholder: "Ej: Chrome 124, Firefox 126"
+
+  # ── OS / Sistema Operativo ──
+  - type: input
+    id: os
+    attributes:
+      label: "Sistema Operativo"
+      placeholder: "Ej: Windows 11, Ubuntu 22.04"
+
+  # ── Node Version ──
+  - type: input
+    id: node_version
+    attributes:
+      label: "Versión de Node.js"
+      placeholder: "Ej: 20.11.0"
+
+  # ── Logs / Logs ──
+  - type: textarea
+    id: logs
+    attributes:
+      label: "Logs relevantes"
+      description: "Pegue cualquier log de error de la consola del navegador, backend o Nginx."
+      render: shell
+
+  # ── Screenshots / Capturas ──
+  - type: textarea
+    id: screenshots
+    attributes:
+      label: "Capturas de pantalla"
+      description: "Arrastre imágenes aquí si son útiles para entender el bug."
+
+  # ── Related Issues / Issues Relacionados ──
+  - type: input
+    id: related
+    attributes:
+      label: "Issues relacionados"
+      placeholder: "Ej: #42, #58"
+
+  # ── Separator ──
+  - type: markdown
+    attributes:
+      value: |
+        ---
+        ### ✅ Verificación
+
+  # ── Checklist ──
+  - type: checkboxes
+    id: checklist
+    attributes:
+      label: "Checklist de verificación"
+      options:
+        - label: "He verificado que este bug no ha sido reportado anteriormente."
+          required: true
+        - label: "He incluido los pasos para reproducir el bug."
+          required: true
+        - label: "He revisado los logs del backend/navegador."

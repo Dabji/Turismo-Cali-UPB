@@ -1,0 +1,87 @@
+# =============================================================================
+# CI Pipeline — Escudo de Integración Continua
+# Turismo Cali — Consorcio "Ruta 7 Ríos"
+# =============================================================================
+# Se dispara en Pull Requests hacia main y develop.
+# Ejecuta en la nube de GitHub (ubuntu-latest).
+# Si algún job falla, el PR queda bloqueado y no se puede fusionar.
+# =============================================================================
+
+name: "\U0001F6E1\uFE0F CI Pipeline"
+
+on:
+  pull_request:
+    branches: [main, develop]
+
+concurrency:
+  group: ci-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  # ─────────────────────────────────────────────
+  # JOB 1: Frontend (React / Vite)
+  # ─────────────────────────────────────────────
+  frontend:
+    name: "\U0001F3A8 Frontend — Types & Build"
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: ./
+    steps:
+      - name: "\U0001F4E5 Checkout código"
+        uses: actions/checkout@v4
+
+      - name: "\U0001F7E2 Configurar Node.js"
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: npm
+          cache-dependency-path: package-lock.json
+
+      - name: "\U0001F4E6 Instalar dependencias (Monorepo)"
+        run: npm ci
+
+      - name: "\U0001F50D Verificar tipos (TypeScript)"
+        run: npx tsc -p frontend/tsconfig.json --noEmit
+
+      - name: "\U0001F9F9 Linter"
+        run: npm run lint --workspace=frontend --if-present
+
+      - name: "\U0001F3D7\uFE0F Compilar producción"
+        run: npm run build --workspace=frontend
+
+  # ─────────────────────────────────────────────
+  # JOB 2: Backend (Node.js / Express / Prisma)
+  # ─────────────────────────────────────────────
+  backend:
+    name: "⚙\uFE0F Backend — Types, Build & Prisma"
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: ./
+    steps:
+      - name: "\U0001F4E5 Checkout código"
+        uses: actions/checkout@v4
+
+      - name: "\U0001F7E2 Configurar Node.js"
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: npm
+          cache-dependency-path: package-lock.json
+
+      - name: "\U0001F4E6 Instalar dependencias (Monorepo)"
+        run: npm ci
+
+      - name: "\U0001F504 Generar cliente Prisma"
+        run: npx prisma generate
+        working-directory: ./backend
+
+      - name: "\U0001F50D Verificar tipos (TypeScript)"
+        run: npx tsc -p backend/tsconfig.json --noEmit
+
+      - name: "\U0001F3D7\uFE0F Compilar producción"
+        run: npm run build --workspace=backend
+
+      - name: "\U0001F9EA Ejecutar tests"
+        run: npm run test --workspace=backend --if-present

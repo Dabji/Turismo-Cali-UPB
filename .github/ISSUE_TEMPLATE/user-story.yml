@@ -1,0 +1,198 @@
+name: "\U0001F4D6 Nueva Historia de Usuario / New User Story"
+description: "Formulario para Historias de Usuario de Turismo Cali — Ruta 7 Ríos."
+title: "[US]: "
+labels: ["user-story", "triage"]
+body:
+  # ── Header / Encabezado ──
+  - type: markdown
+    attributes:
+      value: |
+        ## \U0001F4D1 Historia de Usuario / User Story
+        Complete todos los campos del formulario. / Fill in all the form fields.
+
+  # ── Sprint ──
+  - type: dropdown
+    id: sprint
+    attributes:
+      label: "Sprint"
+      description: "Seleccione el sprint / Select the sprint"
+      options:
+        - "Sprint 1 (Infraestructura & Auth LDAP)"
+        - "Sprint 2 (Servicios Turísticos & Landing)"
+        - "Sprint 3 (Admin Dashboard & Auditoría)"
+        - "Sprint 4 (Integración WAN & Hardening)"
+        - "Sprint 5 (Despliegue & Documentación)"
+    validations:
+      required: true
+
+  # ── SRS Requirement ID / ID del Requerimiento ──
+  - type: input
+    id: rf_id
+    attributes:
+      label: "Requirement ID (SRS) / ID del Requerimiento (SRS)"
+      description: "Identificador del requerimiento en el documento SRS o Historia de Usuario del Track 2."
+      placeholder: "Ej: HU-70, RF-02"
+    validations:
+      required: true
+
+  # ── Priority / Prioridad ──
+  - type: dropdown
+    id: priority
+    attributes:
+      label: "Priority / Prioridad"
+      description: "Nivel de prioridad de la historia."
+      options:
+        - "\U0001F534 High / Alta"
+        - "\U0001F7E1 Medium / Media"
+        - "\U0001F7E2 Low / Baja"
+    validations:
+      required: true
+
+  # ── Related Epic / Épica Relacionada ──
+  - type: dropdown
+    id: epic
+    attributes:
+      label: "Related Epic / Épica Relacionada"
+      description: "Épica a la que pertenece esta historia."
+      options:
+        - "Autenticación LDAP/DA"
+        - "Landing Page & Servicios Turísticos"
+        - "Panel de Administración"
+        - "Infraestructura & HTTPS"
+        - "Integración WAN (VoIP, Proxy, DNS)"
+        - "Base de Datos & Prisma"
+        - "Auditoría & No Repudio"
+        - "Otra"
+    validations:
+      required: true
+
+  # ── Affected Components / Componentes Afectados ──
+  - type: checkboxes
+    id: components
+    attributes:
+      label: "Affected Components / Componentes Afectados"
+      description: "Seleccione los componentes involucrados."
+      options:
+        - label: "Backend (Express + Prisma)"
+        - label: "Frontend (React + Vite)"
+        - label: "Base de Datos (MySQL)"
+        - label: "Infraestructura (Nginx / Scripts)"
+        - label: "Red WAN / Servicios Externos"
+
+  # ── Separator ──
+  - type: markdown
+    attributes:
+      value: |
+        ---
+        ### \U0001F3AF Definición de la Historia
+
+  # ── Role / Rol ──
+  - type: dropdown
+    id: role
+    attributes:
+      label: "As a... / Como... (Rol de usuario)"
+      description: "Seleccione el rol del usuario."
+      options:
+        - "Turista / Visitante"
+        - "Administrador"
+        - "Ingeniero de Red / DevOps"
+        - "Usuario LDAP Corporativo"
+    validations:
+      required: true
+
+  # ── I want / Quiero ──
+  - type: textarea
+    id: want
+    attributes:
+      label: "I want... / Quiero... (Acción)"
+      description: "Describa la funcionalidad deseada."
+      placeholder: "Ej: iniciar sesión con mis credenciales LDAP corporativas"
+    validations:
+      required: true
+
+  # ── So that / Para ──
+  - type: textarea
+    id: so_that
+    attributes:
+      label: "So that... / Para... (Valor de negocio)"
+      description: "Describa el beneficio esperado."
+      placeholder: "Ej: acceder al panel de administración de servicios turísticos"
+    validations:
+      required: true
+
+  # ── Separator ──
+  - type: markdown
+    attributes:
+      value: |
+        ---
+        ### ✅ Criterios de Aceptación
+
+  # ── Criterios ──
+  - type: input
+    id: criteria_1
+    attributes:
+      label: "Criterio 1"
+      placeholder: "Ej: El sistema autentica contra el servidor LDAP de Cali"
+    validations:
+      required: true
+
+  - type: input
+    id: criteria_2
+    attributes:
+      label: "Criterio 2"
+      placeholder: "Ej: Si LDAP no está disponible, se usa fallback local (bcrypt)"
+    validations:
+      required: true
+
+  - type: input
+    id: criteria_3
+    attributes:
+      label: "Criterio 3 (opcional)"
+      placeholder: "Agregue otro criterio si es necesario"
+
+  - type: input
+    id: criteria_4
+    attributes:
+      label: "Criterio 4 (opcional)"
+      placeholder: "Agregue otro criterio si es necesario"
+
+  # ── Separator ──
+  - type: markdown
+    attributes:
+      value: |
+        ---
+        ### \U0001F4CE Información Adicional
+
+  # ── References ──
+  - type: textarea
+    id: references
+    attributes:
+      label: "Referencias"
+      description: "Links a secciones del SRS, diseños Figma, documentos de red, etc."
+      placeholder: "SRS Sección 3.2 / HU-70 / docs/architecture/system-design.md"
+      render: text
+
+  # ── Additional Notes ──
+  - type: textarea
+    id: notes
+    attributes:
+      label: "Notas adicionales"
+      description: "Cualquier contexto o detalle extra."
+      placeholder: "Ej: Depende de la HU-65 (VoIP Bogotá)"
+      render: text
+
+  # ── Separator ──
+  - type: markdown
+    attributes:
+      value: |
+        ---
+        ### \U0001F512 Control de Calidad
+
+  # ── Scrum Master Validation ──
+  - type: checkboxes
+    id: sm_validation
+    attributes:
+      label: "Validación del Scrum Master"
+      options:
+        - label: "Esta historia cumple con el estándar de calidad del proyecto Ruta 7 Ríos."
+          required: true
