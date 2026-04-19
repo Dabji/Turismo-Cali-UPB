@@ -6,6 +6,7 @@
 interface ExperienceCardProps {
   image: string;
   title: string;
+  alt: string;
   description: string;
   bullets: string[];
   accentColor: string;          // Color del icono flotante (bg-*)
@@ -15,6 +16,7 @@ interface ExperienceCardProps {
 export default function ExperienceCard({
   image,
   title,
+  alt,
   description,
   bullets,
   accentColor,
@@ -26,7 +28,10 @@ export default function ExperienceCard({
       <div className="relative h-48 sm:h-56 overflow-hidden">
         <img
           src={image}
-          alt={title}
+          alt={alt}
+          width={600}
+          height={224}
+          loading="lazy"
           className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700"
         />
         <div className="absolute inset-0 bg-gradient-to-t from-navy/80 via-navy/30 to-transparent" />

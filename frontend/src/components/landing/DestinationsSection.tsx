@@ -13,6 +13,7 @@ import iglesia from '../../images/iglesia.png';
 interface Destination {
   image: string;
   title: string;
+  alt: string;
   description: string;
   badge: string;
   badgeColor: string;
@@ -23,6 +24,7 @@ const DESTINATIONS: Destination[] = [
   {
     image: cristoRey,
     title: 'Cristo Rey',
+    alt: 'Vista panorámica del monumento a Cristo Rey en Cali con los brazos abiertos sobre el cerro',
     description: 'Monumento icónico con una vista panorámica espectacular de la ciudad. Un lugar perfecto.',
     badge: 'Histórico',
     badgeColor: 'bg-coral',
@@ -31,6 +33,7 @@ const DESTINATIONS: Destination[] = [
   {
     image: sanAntonio,
     title: 'Barrio San Antonio',
+    alt: 'Calles empedradas y casas coloniales coloridas del Barrio San Antonio en Cali',
     description: 'Corazón bohemio de Cali con arquitectura colonial, galerías de arte y una vida cultural.',
     badge: 'Cultural',
     badgeColor: 'bg-blue-600',
@@ -39,6 +42,7 @@ const DESTINATIONS: Destination[] = [
   {
     image: zoologico,
     title: 'Zoológico de Cali',
+    alt: 'Flamencos rosados en su hábitat dentro del Zoológico de Cali',
     description: 'Uno de los mejores zoológicos de América Latina, hogar de más de 1.200 animales en su.',
     badge: 'Naturaleza',
     badgeColor: 'bg-green-600',
@@ -47,6 +51,7 @@ const DESTINATIONS: Destination[] = [
   {
     image: farallones,
     title: 'Parque Farallones',
+    alt: 'Paisaje montañoso del Parque Nacional Natural Farallones de Cali con vegetación exuberante',
     description: 'Parque Nacional Natural con una biodiversidad única, senderos ecológicos y paisajes de.',
     badge: 'Aventura',
     badgeColor: 'bg-amber-600',
@@ -55,7 +60,8 @@ const DESTINATIONS: Destination[] = [
   {
     image: boulevard,
     title: 'Bulevar del río',
-    description: 'Espacio urbano junto al río ideal para caminar, hacer ejercicio de lúnor del urbanismo caleño.',
+    alt: 'Paseo peatonal del Bulevar del Río en Cali junto al río Cali al atardecer',
+    description: 'Espacio urbano junto al río ideal para caminar, hacer ejercicio y disfrutar de lo mejor del urbanismo caleño.',
     badge: 'Recreación',
     badgeColor: 'bg-purple-600',
     rating: 4.8,
@@ -63,6 +69,7 @@ const DESTINATIONS: Destination[] = [
   {
     image: iglesia,
     title: 'Iglesia La Ermita',
+    alt: 'Fachada gótica de la Iglesia La Ermita iluminada al anochecer en el centro de Cali',
     description: 'Joya arquitectónica gótica, uno de los íconos más reconocidos y fotografiados de Cali.',
     badge: 'Patrimonio',
     badgeColor: 'bg-teal-600',
@@ -91,14 +98,14 @@ function Stars({ rating }: { rating: number }) {
 
 export default function DestinationsSection() {
   return (
-    <section id="destinos" className="bg-white py-20 px-4">
+    <section id="destinos" aria-labelledby="destinos-titulo" className="bg-white py-20 px-4">
       <div className="max-w-6xl mx-auto">
         {/* ── Encabezado ── */}
         <div className="text-center mb-14">
           <span className="font-poppins text-coral text-sm font-semibold tracking-widest uppercase">
             Lugares Emblemáticos
           </span>
-          <h2 className="font-volkhov text-navy text-3xl sm:text-4xl md:text-5xl font-bold mt-2">
+          <h2 id="destinos-titulo" className="font-volkhov text-navy text-3xl sm:text-4xl md:text-5xl font-bold mt-2">
             Destinos Destacados
           </h2>
           <p className="mt-4 text-ash font-poppins max-w-2xl mx-auto text-sm sm:text-base leading-relaxed">
@@ -117,7 +124,10 @@ export default function DestinationsSection() {
               {/* Imagen de fondo */}
               <img
                 src={dest.image}
-                alt={dest.title}
+                alt={dest.alt}
+                width={400}
+                height={288}
+                loading="lazy"
                 className="absolute inset-0 w-full h-full object-cover group-hover:scale-110 transition-transform duration-700"
               />
               {/* Degradado */}

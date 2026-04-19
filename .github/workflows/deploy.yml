@@ -1,0 +1,96 @@
+# =============================================================================
+# Deploy Pipeline — Despliegue a Producción (Servidor de Laboratorio)
+# Turismo Cali — Consorcio "Ruta 7 Ríos"
+# =============================================================================
+# Se dispara al hacer push a main (después de merge del PR).
+# Ejecuta en el self-hosted runner del servidor de laboratorio.
+# Requiere que el runner tenga: Node.js, Nginx, PM2 instalados.
+# =============================================================================
+
+name: "🚀 Deploy to Production"
+
+on:
+  push:
+    branches: [main]
+
+concurrency:
+  group: production-deploy
+  cancel-in-progress: false
+
+jobs:
+  deploy:
+    name: "Desplegar a Producción"
+    runs-on: self-hosted
+    environment: production
+
+    steps:
+      - name: 📥 Descargar último código
+        uses: actions/checkout@v4
+
+      # --- INYECCIÓN DE VARIABLES Y SECRETOS ---
+      - name: 🔐 Crear .env para Frontend
+        run: |
+          cd frontend
+          echo "VITE_API_URL=https://turismocali.local/api" > .env
+
+      - name: 🔐 Crear .env para Backend
+        env:
+          DB_PASSWORD: ${{ secrets.DB_PASSWORD }}
+          LDAP_BIND_PASSWORD: ${{ secrets.LDAP_BIND_PASSWORD }}
+          JWT_SECRET: ${{ secrets.JWT_SECRET }}
+        run: |
+          cd backend
+          DB_PASSWORD_ENCODED="$(node -p "encodeURIComponent(process.env.DB_PASSWORD)")"
+          cat > .env <<'STATIC_EOF'
+          PORT=4000
+          NODE_ENV=production
+          CORS_ORIGIN=https://turismocali.local
+          FRONTEND_URL=https://turismocali.local
+          LDAP_URL=ldap://10.0.3.10:389
+          LDAP_BIND_DN=cn=admin,dc=ruta7rios,dc=local
+          LDAP_SEARCH_BASE=ou=users,dc=ruta7rios,dc=local
+          JWT_EXPIRES_IN=8h
+          STATIC_EOF
+          sed -i 's/^[[:space:]]*//' .env
+          printf '%s\n' "DATABASE_URL=mysql://turismo_user:${DB_PASSWORD_ENCODED}@localhost:3306/turismo_cali_db" >> .env
+          printf '%s\n' "LDAP_BIND_PASSWORD=${LDAP_BIND_PASSWORD}" >> .env
+          printf '%s\n' "JWT_SECRET=${JWT_SECRET}" >> .env
+          chmod 600 .env
+
+      # --- INSTALACIÓN Y CONSTRUCCIÓN (Workspaces) ---
+      - name: 📦 Instalar dependencias (Monorepo)
+        run: npm ci
+
+      - name: 🔄 Generar cliente Prisma
+        run: npx prisma generate
+        working-directory: ./backend
+
+      - name: 🏗️ Construir Frontend y Backend
+        run: |
+          npm run build --workspace=frontend
+          npm run build --workspace=backend
+
+      # --- DESPLIEGUE FINAL ---
+      - name: 🚀 Desplegar Frontend (Nginx)
+        run: |
+          rm -rf /var/www/turismocali/frontend/dist/*
+          cp -r frontend/dist/* /var/www/turismocali/frontend/dist/
+
+      - name: 🔄 Reiniciar Backend (PM2)
+        run: |
+          cd backend
+          pm2 reload ecosystem.config.js --env production \
+            || pm2 start ecosystem.config.js --env production
+          pm2 save
+
+      - name: ✅ Health Check
+        run: |
+          sleep 10
+          curl --fail --silent --max-time 10 http://localhost:4000/api/health \
+            || { echo "⚠️ Health check falló — verificar logs con: pm2 logs turismo-backend"; exit 1; }
+
+      - name: 🧹 Limpiar secretos del workspace
+        if: always()
+        run: |
+          rm -f backend/.env frontend/.env
+          echo "✅ Archivos .env eliminados del disco del runner."
