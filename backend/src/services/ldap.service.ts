@@ -113,7 +113,7 @@ export class LdapService {
               const attrs = entry.attributes ?? [];
 
               const getAttribute = (name: string): string => {
-                const attr = attrs.find((a: any) => a.type === name);
+                const attr = attrs.find((a: any) => a.type === name) as any;
                 const values = (attr?.vals ?? attr?.values ?? []) as unknown[];
                 const first = values[0] ?? '';
                 return typeof first === 'string' ? first : String(first);
