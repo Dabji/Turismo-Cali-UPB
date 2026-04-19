@@ -1,0 +1,38 @@
+# =============================================================================
+# DevSecOps — Dependabot (Gestión de Dependencias)
+# Turismo Cali — Consorcio "Ruta 7 Ríos"
+# =============================================================================
+# Revisa semanalmente las dependencias npm del monorepo.
+# Si detecta actualizaciones o vulnerabilidades, crea PRs automáticos.
+# =============================================================================
+
+version: 2
+
+updates:
+  # ─── npm (Monorepo raíz — cubre frontend/ y backend/ via workspaces) ───
+  - package-ecosystem: npm
+    directory: /
+    schedule:
+      interval: weekly
+      day: monday
+      time: "08:00"
+      timezone: America/Bogota
+    labels:
+      - "dependencies"
+    commit-message:
+      prefix: "deps(npm):"
+    open-pull-requests-limit: 10
+
+  # ─── GitHub Actions ───
+  - package-ecosystem: github-actions
+    directory: /
+    schedule:
+      interval: weekly
+      day: monday
+      time: "08:00"
+      timezone: America/Bogota
+    labels:
+      - "dependencies"
+      - "ci/cd"
+    commit-message:
+      prefix: "deps(actions):"
