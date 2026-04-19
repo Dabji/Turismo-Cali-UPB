@@ -114,7 +114,7 @@ Turismo-Cali-UPB/
 
 ### Prerrequisitos
 
-- **Node.js** ≥ 18
+- **Node.js** ≥ 18.17.0
 - **npm** ≥ 9
 - **MySQL** ≥ 8.0
 - **Nginx** (solo para producción / pruebas HTTPS)

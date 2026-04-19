@@ -88,3 +88,9 @@ jobs:
           sleep 10
           curl --fail --silent --max-time 10 http://localhost:4000/api/health \
             || { echo "⚠️ Health check falló — verificar logs con: pm2 logs turismo-backend"; exit 1; }
+
+      - name: 🧹 Limpiar secretos del workspace
+        if: always()
+        run: |
+          rm -f backend/.env frontend/.env
+          echo "✅ Archivos .env eliminados del disco del runner."

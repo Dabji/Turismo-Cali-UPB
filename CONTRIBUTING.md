@@ -4,7 +4,7 @@
 
 ## Prerrequisitos
 
-- **Node.js** ≥ 18
+- **Node.js** ≥ 18.17.0
 - **npm** ≥ 9
 - **MySQL** ≥ 8.0
 - Familiaridad con **TypeScript**, **React** y **Express**

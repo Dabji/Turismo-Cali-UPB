@@ -38,8 +38,6 @@ BACKUP_FILE_DB="${BACKUP_DIR_DB}/${DB_NAME}_backup_${DATE}.sql.gz"
 BACKUP_FILE_NGINX="${BACKUP_DIR_CONFIGS}/nginx_config_${DATE}.tar.gz"
 BACKUP_FILE_PROJECT="${BACKUP_DIR_CONFIGS}/project_config_${DATE}.tar.gz"
 
-LOG_FILE="/var/log/backup_db.log"
-
 # Rutas de configuraciones a respaldar
 # HU-71: Respaldo de configuraciones críticas del servidor y del proyecto
 NGINX_CONFIG_DIR="/etc/nginx"
