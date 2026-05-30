@@ -1,7 +1,7 @@
 {
   "name": "proyecto-turismo-cali",
   "version": "1.0.0",
-  "description": "Sistema monorepo para empresa de turismo - Proyecto Integrador",
+  "description": "Monorepo publico de Ruta 7 Rios: landing turistica, backend base y evidencia Track 2",
   "private": true,
   "workspaces": [
     "frontend",

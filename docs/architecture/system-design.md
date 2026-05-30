@@ -1,18 +1,33 @@
 <div align="center">
 
-# Diseño del Sistema — Turismo Cali
+# 🏛️ Diseño del Sistema / System Design
 
-**Consorcio Turístico "Ruta 7 Ríos"**
-**Infraestructura WAN Corporativa — Track 2**
+**Consorcio Turístico "Ruta 7 Ríos" / "Ruta 7 Ríos" Tourism Consortium**
+**Infraestructura WAN Corporativa — Track 2 / Corporate WAN Infrastructure — Track 2**
 
-Documentación de la arquitectura del sistema, integración con servicios de red
-y decisiones técnicas del monorepo.
+**ES:** Arquitectura del monorepo, integración con servicios de red y decisiones técnicas del despliegue.
+**EN:** Monorepo architecture, network-service integration, and deployment design decisions.
 
 </div>
 
 ---
 
-## Índice
+![Vista hero de la landing](https://github.com/user-attachments/assets/72f78f36-c20a-4579-8e58-50e58972138c)
+
+---
+
+## 🧭 Guía de Lectura / Reading Guide
+
+| ES | EN |
+|---|---|
+| El frontend es una SPA React/Vite servida por Nginx en el laboratorio. | The frontend is a React/Vite SPA served by Nginx in the lab. |
+| El backend es Express con Prisma, autenticación JWT y conexión a MySQL. | The backend is Express with Prisma, JWT authentication, and MySQL connectivity. |
+| La red WAN del Track 2 se documenta como contexto académico e infraestructura de apoyo. | The Track 2 WAN is documented as academic context and supporting infrastructure. |
+| La publicación pública debe leerse junto con la auditoría del repositorio. | Public release readiness should be read together with the repository audit. |
+
+---
+
+## 📚 Índice / Table of Contents
 
 1. [Arquitectura General](#1-arquitectura-general)
 2. [Estructura del Monorepo](#2-estructura-del-monorepo)
@@ -25,9 +40,11 @@ y decisiones técnicas del monorepo.
 
 ---
 
-## 1. Arquitectura General
+## 1. Arquitectura General / General Architecture
 
-El sistema sigue una arquitectura **cliente-servidor desacoplada** dentro de un monorepo administrado con npm workspaces. El frontend (SPA) se comunica con el backend exclusivamente a través de una API REST, intermediada por un reverse proxy Nginx con terminación HTTPS.
+**ES:** El sistema sigue una arquitectura **cliente-servidor desacoplada** dentro de un monorepo administrado con npm workspaces. El frontend (SPA) se comunica con el backend a través de una API REST. En desarrollo se usa Vite con proxy local; en el laboratorio la publicación se hizo con Nginx, build estático, proxy `/api` y TLS autofirmado documentado en la HU-70.
+
+**EN:** The system follows a **decoupled client-server architecture** inside an npm-workspaces monorepo. The frontend SPA communicates with the backend through a REST API. Development uses the Vite local proxy; the lab deployment used Nginx, a static build, an `/api` reverse proxy, and the self-signed TLS setup documented in HU-70.
 
 ```mermaid
 graph TD
@@ -41,7 +58,7 @@ graph TD
     end
 
     subgraph SERVIDOR["Backend"]
-        EXP["Express :4000\nAPI REST"]
+        EXP["Express :4000 dev / :3001 lab\nAPI REST"]
         PRISMA["Prisma ORM\nQuery Builder + Migraciones"]
         AUTH["Auth Layer\nLDAP/DA + JWT + bcrypt"]
         AUDIT["Auditoría\nWinston + Morgan"]
@@ -109,8 +126,11 @@ Turismo-Cali-UPB/
 │   └── backup_db.sh        # Script de respaldo de BD y configuraciones
 ├── docs/                   # Documentación del proyecto
 │   ├── architecture/       # Diseño del sistema y decisiones técnicas
+│   ├── infrastructure/     # Despliegue local y laboratorio
+│   ├── landing/            # Identidad, UI, SEO, accesibilidad y capturas
 │   ├── legal/              # Política de privacidad y cumplimiento
-│   └── network/            # Guías de servicios de red externos
+│   ├── network/            # Guías de servicios de red externos
+│   └── track-2/            # Evidencias migradas del Track 2
 ├── .github/                # CI/CD y plantillas de Issues
 │   ├── workflows/          # Pipelines de GitHub Actions
 │   └── ISSUE_TEMPLATE/     # Plantillas para User Stories y Bug Reports
@@ -321,7 +341,7 @@ graph LR
     N80 -->|"→ :443"| N443["Nginx :443\nSSL Termination"]
     BROWSER -->|":443 HTTPS"| N443
     N443 -->|"/ (static)"| DIST["frontend/dist/\nReact Build"]
-    N443 -->|"/api/*"| EXPRESS["Express :4000"]
+    N443 -->|"/api/*"| EXPRESS["Express :4000 dev / :3001 lab"]
 
     style N443 fill:#009639,stroke:#006B27,color:#fff
     style DIST fill:#61DAFB,stroke:#333,color:#000
@@ -329,9 +349,9 @@ graph LR
 ```
 
 - **Puerto 80**: Redirección permanente (301) a HTTPS.
-- **Puerto 443**: Terminación SSL con certificados autofirmados (`/etc/ssl/certs/turismocali.crt`).
+- **Puerto 443**: Terminación SSL con certificados autofirmados en laboratorio (`/etc/nginx/ssl/ruta7rios.crt`).
 - **`/`**: Sirve archivos estáticos del build de React (Vite).
-- **`/api/`**: Reverse proxy hacia Express en `localhost:4000`.
+- **`/api/`**: Reverse proxy hacia Express (`localhost:4000` en desarrollo; `127.0.0.1:3001` en la VM de laboratorio).
 
 ### 7.2. Backups
 

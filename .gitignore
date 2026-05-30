@@ -1,6 +1,16 @@
 node_modules/
+.npm-cache/
 dist/
 .env
+.env.local
+.env.*.local
 *.log
+logs/
+backend/logs/
 .DS_Store
 coverage/
+*.tsbuildinfo
+frontend/vite.config.js
+frontend/vite.config.d.ts
+frontend/dist/
+backend/dist/

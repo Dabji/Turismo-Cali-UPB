@@ -1,23 +1,36 @@
-# Guía de Configuración — Consumo de Servicios Externos
+# 🌐 Guía de Servicios Externos / External Services Guide
 
-**Consorcio Turístico "Ruta 7 Ríos"**
-**Sede Cali — VLAN 3 — Track 2 WAN**
+**Consorcio Turístico "Ruta 7 Ríos" / "Ruta 7 Ríos" Tourism Consortium**
+**Sede Cali — VLAN 3 — Track 2 WAN / Cali Site — VLAN 3 — Track 2 WAN**
 
 ---
 
-## Índice
+## 🧭 Resumen Público / Public Summary
+
+| ES | EN |
+|---|---|
+| La sede Cali consume servicios publicados por otras sedes del consorcio. | The Cali site consumes services published by other consortium sites. |
+| Este documento explica cómo configurar clientes para VoIP, proxy y DNS. | This document explains how to configure clients for VoIP, proxy, and DNS. |
+| Las IP son referencias del laboratorio y deben validarse contra la topología vigente. | IP addresses are lab references and must be validated against the current topology. |
+| Las evidencias originales se conservan para revisión académica. | Original evidence is preserved for academic review. |
+
+---
+
+## 📚 Índice / Table of Contents
 
 1. [Contexto](#1-contexto)
-2. [Consumo de VoIP — Servidor de Bogotá (HU-65)](#2-consumo-de-voip--servidor-de-bogotá-hu-65)
-3. [Consumo de Proxy — Servidor de Bucaramanga (HU-68)](#3-consumo-de-proxy--servidor-de-bucaramanga-hu-68)
+2. [Consumo de VoIP — Servidor de Bogotá](#2-consumo-de-voip--servidor-de-bogotá)
+3. [Consumo de Proxy — Servidor de Bucaramanga (HU-65)](#3-consumo-de-proxy--servidor-de-bucaramanga-hu-65)
 4. [Consumo de DNS — Servidor de Medellín](#4-consumo-de-dns--servidor-de-medellín)
 5. [Verificación de Conectividad](#5-verificación-de-conectividad)
 
 ---
 
-## 1. Contexto
+## 1. Contexto / Context
 
-Dentro del Track 2 de conectividad WAN nacional, cada sede del consorcio "Ruta 7 Ríos" provee y consume servicios de red:
+**ES:** Dentro del Track 2 de conectividad WAN nacional, cada sede del consorcio "Ruta 7 Ríos" provee y consume servicios de red.
+
+**EN:** Within Track 2 of the national WAN connectivity lab, each "Ruta 7 Ríos" consortium site provides and consumes network services.
 
 | Sede | Servicio Provisto | IP de Referencia (ejemplo) |
 |---|---|---|
@@ -26,13 +39,13 @@ Dentro del Track 2 de conectividad WAN nacional, cada sede del consorcio "Ruta 7
 | **Bucaramanga** | Proxy (Salida a Internet) | `10.0.2.10` |
 | **Medellín** | DNS | `10.0.4.10` |
 
-> **Nota**: Las IPs son de referencia para la topología del laboratorio. Consultar el documento de topología WAN (`docs/track 2/topología_proyecto.pkt`) para las direcciones reales asignadas.
+> **Nota**: Las IPs son de referencia para la topología del laboratorio. Consultar el documento de topología WAN (`docs/track-2/topología_proyecto.pkt`) para las direcciones reales asignadas.
 
 Nuestra sede (Cali, VLAN 3) es **consumidora/cliente** de los servicios VoIP, Proxy y DNS provistos por las demás sedes. No administramos esos servidores; solo nos conectamos a ellos.
 
 ---
 
-## 2. Consumo de VoIP — Servidor de Bogotá (HU-65)
+## 2. Consumo de VoIP — Servidor de Bogotá
 
 ### 2.1. Requisitos Previos
 
@@ -90,13 +103,13 @@ Nuestra sede (Cali, VLAN 3) es **consumidora/cliente** de los servicios VoIP, Pr
 
 ---
 
-## 3. Consumo de Proxy — Servidor de Bucaramanga (HU-68)
+## 3. Consumo de Proxy — Servidor de Bucaramanga (HU-65)
 
 ### 3.1. Datos del Proxy
 
 | Parámetro | Valor |
 |---|---|
-| **Dirección del Proxy** | `10.0.2.10` |
+| **Dirección del Proxy** | `10.7.2.16` en la evidencia HU-65; `10.0.2.10` como referencia generica de topologia |
 | **Puerto** | `3128` (Squid por defecto) |
 | **Tipo** | HTTP / HTTPS |
 | **Autenticación** | Según configuración de Bucaramanga (consultar con su admin) |
@@ -108,7 +121,7 @@ Nuestra sede (Cali, VLAN 3) es **consumidora/cliente** de los servicios VoIP, Pr
 1. Abrir **Configuración** → **Red e Internet** → **Proxy**.
 2. En la sección **"Configuración manual del proxy"**, activar el interruptor.
 3. Completar:
-   - **Dirección**: `10.0.2.10`
+   - **Dirección**: `10.7.2.16` (o la IP vigente entregada por Bucaramanga)
    - **Puerto**: `3128`
 4. En **"No usar el servidor proxy para las direcciones que empiecen por"**, agregar:
    ```
@@ -124,7 +137,7 @@ Chrome y Edge en Windows usan la configuración del sistema por defecto. Para un
 2. Crear un nuevo perfil de tipo **"Proxy Profile"**.
 3. Configurar:
    - **Protocol**: `HTTP`
-   - **Server**: `10.0.2.10`
+   - **Server**: `10.7.2.16`
    - **Port**: `3128`
 4. En la pestaña **"Bypass List"**, agregar:
    ```
@@ -140,7 +153,7 @@ Chrome y Edge en Windows usan la configuración del sistema por defecto. Para un
 1. Abrir Firefox → **Configuración** → **General** → sección **"Configuración de red"** → **Configuración...**
 2. Seleccionar **"Configuración manual del proxy"**.
 3. Completar:
-   - **Proxy HTTP**: `10.0.2.10` — **Puerto**: `3128`
+   - **Proxy HTTP**: `10.7.2.16` — **Puerto**: `3128`
    - Marcar **"Usar este servidor proxy para todos los protocolos"**.
 4. En **"No usar proxy para"**, agregar:
    ```
@@ -153,8 +166,8 @@ Chrome y Edge en Windows usan la configuración del sistema por defecto. Para un
 #### Método 1: Variables de Entorno (sesión actual)
 
 ```bash
-export http_proxy="http://10.0.2.10:3128"
-export https_proxy="http://10.0.2.10:3128"
+export http_proxy="http://10.7.2.16:3128"
+export https_proxy="http://10.7.2.16:3128"
 export no_proxy="localhost,127.0.0.1,10.0.3.0/24,*.ruta7rios.local"
 ```
 
@@ -165,8 +178,8 @@ Para hacerlo permanente, agregar las líneas anteriores al archivo `~/.bashrc` o
 1. Ir a **Configuración** → **Red** → **Proxy de red**.
 2. Seleccionar **"Manual"**.
 3. Completar:
-   - **Proxy HTTP**: `10.0.2.10` — Puerto: `3128`
-   - **Proxy HTTPS**: `10.0.2.10` — Puerto: `3128`
+   - **Proxy HTTP**: `10.7.2.16` — Puerto: `3128`
+   - **Proxy HTTPS**: `10.7.2.16` — Puerto: `3128`
 4. En **"Ignorar hosts"**, agregar: `localhost,127.0.0.1,10.0.3.*`
 
 #### Método 3: Configuración para `apt` (Debian/Ubuntu)
@@ -174,15 +187,15 @@ Para hacerlo permanente, agregar las líneas anteriores al archivo `~/.bashrc` o
 Crear o editar el archivo `/etc/apt/apt.conf.d/proxy.conf`:
 
 ```
-Acquire::http::Proxy "http://10.0.2.10:3128";
-Acquire::https::Proxy "http://10.0.2.10:3128";
+Acquire::http::Proxy "http://10.7.2.16:3128";
+Acquire::https::Proxy "http://10.7.2.16:3128";
 ```
 
 ### 3.4. Verificación del Proxy
 
 ```bash
 # Verificar que el proxy responde
-curl -x http://10.0.2.10:3128 http://www.google.com -I
+curl -x http://10.7.2.16:3128 http://www.google.com -I
 
 # Resultado esperado: HTTP/1.1 200 OK (a través del proxy)
 ```
@@ -240,8 +253,8 @@ ping -c 4 10.0.1.10
 traceroute 10.0.1.10
 
 # 2. Verificar ruta hacia Proxy (Bucaramanga)
-ping -c 4 10.0.2.10
-curl -x http://10.0.2.10:3128 http://www.google.com -I
+ping -c 4 10.7.2.16
+curl -x http://10.7.2.16:3128 http://www.google.com -I
 
 # 3. Verificar ruta hacia DNS (Medellín)
 ping -c 4 10.0.4.10
@@ -255,7 +268,7 @@ ldapsearch -x -H ldap://10.0.3.10:389 -b "dc=ruta7rios,dc=local" "(objectClass=*
 > - Que las VLANs estén correctamente configuradas en los switches.
 > - Que el enrutamiento inter-VLAN esté habilitado en el router/switch capa 3.
 > - Que los firewalls permitan el tráfico entre las redes del consorcio.
-> - Consultar la topología WAN en `docs/track 2/topología_proyecto.pkt`.
+> - Consultar la topología WAN en `docs/track-2/topología_proyecto.pkt`.
 
 ---
 

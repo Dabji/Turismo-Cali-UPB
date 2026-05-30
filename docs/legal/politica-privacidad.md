@@ -1,191 +1,107 @@
-# Política de Privacidad y Tratamiento de Datos Personales
+# 🔐 Política de Privacidad / Privacy Policy
 
-**Consorcio Turístico "Ruta 7 Ríos"**
-**Turismo Cali — Proyecto Integrador UPB**
+**Consorcio Turístico "Ruta 7 Ríos" / "Ruta 7 Ríos" Tourism Consortium**
+**Proyecto Integrador UPB / UPB Integrative Project**
+**Última actualización / Last updated:** abril de 2026 / April 2026
 
-Última actualización: Abril 2026
+> **ES:** Este documento resume cómo se tratan los datos personales dentro del prototipo académico Ruta 7 Ríos.
+> **EN:** This document summarizes how personal data is handled inside the academic Ruta 7 Ríos prototype.
 
 ---
 
-## 1. Responsable del Tratamiento
+## 1. Responsable / Data Controller
 
-| Campo | Detalle |
+| Campo / Field | Español | English |
+|---|---|---|
+| Nombre / Name | Consorcio Turístico "Ruta 7 Ríos" | "Ruta 7 Ríos" Tourism Consortium |
+| Sede / Location | Santiago de Cali, Valle del Cauca, Colombia | Santiago de Cali, Valle del Cauca, Colombia |
+| Contacto / Contact | `privacidad@ruta7rios.co` | `privacidad@ruta7rios.co` |
+| Contexto / Context | Proyecto académico de infraestructura WAN y aplicación web | Academic WAN infrastructure and web application project |
+
+---
+
+## 2. Marco Legal / Legal Framework
+
+**ES:** La política toma como referencia la normativa colombiana aplicable al tratamiento de datos personales, especialmente la Ley 1581 de 2012, el Decreto 1081 de 2015 y la Ley 1266 de 2008 cuando resulte pertinente.
+
+**EN:** This policy references Colombian personal-data regulations, especially Law 1581 of 2012, Decree 1081 of 2015, and Law 1266 of 2008 where applicable.
+
+---
+
+## 3. Datos Tratados / Data Processed
+
+| Categoría / Category | Español | English |
+|---|---|---|
+| Identificación | Nombre, correo, documento y tipo de documento. | Name, email, ID number, and ID type. |
+| Autenticación | Contraseña cifrada con bcrypt y tokens de sesión. | bcrypt-hashed password and session tokens. |
+| Navegación | Dirección IP, user-agent y marcas de tiempo. | IP address, user agent, and timestamps. |
+| Auditoría | Acciones relevantes para trazabilidad técnica. | Relevant actions for technical traceability. |
+| Contacto turístico | Mensajes, preferencias o solicitudes enviadas por el usuario. | Messages, preferences, or requests sent by the user. |
+
+---
+
+## 4. Finalidades / Purposes
+
+| Español | English |
 |---|---|
-| **Razón social** | Consorcio Turístico "Ruta 7 Ríos" |
-| **Sede principal** | Santiago de Cali, Valle del Cauca, Colombia |
-| **Correo de contacto** | privacidad@ruta7rios.co |
-| **Proyecto académico** | Infraestructura WAN Corporativa — Track 2 (UPB) |
+| Permitir registro, inicio de sesión y gestión básica de usuarios. | Enable registration, login, and basic user management. |
+| Operar servicios turísticos demostrativos del prototipo. | Operate demonstrative tourism services in the prototype. |
+| Proteger la plataforma mediante auditoría, logs y controles de seguridad. | Protect the platform through audit logs and security controls. |
+| Documentar evidencias académicas del despliegue y la red. | Document academic evidence for deployment and networking work. |
+| Mejorar accesibilidad, rendimiento y experiencia de usuario. | Improve accessibility, performance, and user experience. |
 
 ---
 
-## 2. Marco Legal
+## 5. Principios / Principles
 
-Esta política se fundamenta en la normativa colombiana vigente sobre protección de datos personales:
+**ES:** El tratamiento se rige por legalidad, finalidad, libertad, veracidad, transparencia, acceso restringido, seguridad y confidencialidad.
 
-- **Ley Estatutaria 1581 de 2012** — Régimen General de Protección de Datos Personales.
-- **Decreto 1081 de 2015** (Título 2, Parte 2, Libro 2) — Decreto Único Reglamentario del sector Presidencia de la República, que compila las disposiciones reglamentarias sobre el Registro Nacional de Bases de Datos y los procedimientos de tratamiento de datos personales (anteriormente Decreto 1377 de 2013).
-- **Ley 1266 de 2008** — Habeas Data financiero (en lo aplicable).
+**EN:** Processing follows legality, purpose limitation, freedom of choice, accuracy, transparency, restricted access, security, and confidentiality.
 
 ---
 
-## 3. Definiciones
+## 6. Seguridad / Security
 
-Conforme al artículo 3 de la Ley 1581 de 2012:
-
-- **Dato personal**: Cualquier información vinculada o que pueda asociarse a una o varias personas naturales determinadas o determinables.
-- **Titular**: Persona natural cuyos datos personales sean objeto de tratamiento.
-- **Tratamiento**: Cualquier operación o conjunto de operaciones sobre datos personales, tales como la recolección, almacenamiento, uso, circulación o supresión.
-- **Responsable del tratamiento**: Persona natural o jurídica que decide sobre la base de datos y/o el tratamiento de los datos.
-- **Encargado del tratamiento**: Persona natural o jurídica que realice el tratamiento de datos personales por cuenta del responsable.
-- **Autorización**: Consentimiento previo, expreso e informado del titular para llevar a cabo el tratamiento de datos personales.
-
----
-
-## 4. Principios Rectores
-
-El tratamiento de datos personales se rige por los principios establecidos en el artículo 4 de la Ley 1581 de 2012:
-
-1. **Legalidad**: El tratamiento se sujeta a la ley colombiana vigente.
-2. **Finalidad**: El tratamiento obedece a una finalidad legítima, la cual será informada al titular.
-3. **Libertad**: El tratamiento solo puede ejercerse con el consentimiento previo, expreso e informado del titular.
-4. **Veracidad o calidad**: La información sujeta a tratamiento debe ser veraz, completa, exacta, actualizada y comprobable.
-5. **Transparencia**: Se garantiza al titular el derecho a obtener información acerca de la existencia de datos que le conciernan.
-6. **Acceso y circulación restringida**: El tratamiento se sujeta a los límites derivados de la naturaleza de los datos.
-7. **Seguridad**: La información se maneja con las medidas técnicas, humanas y administrativas necesarias para otorgar seguridad a los registros.
-8. **Confidencialidad**: Las personas que intervienen en el tratamiento están obligadas a garantizar la reserva de la información.
+| Control | Español | English |
+|---|---|---|
+| `bcrypt` | Contraseñas almacenadas como hash, no en texto plano. | Passwords stored as hashes, not plain text. |
+| JWT | Sesiones protegidas con tokens firmados. | Sessions protected with signed tokens. |
+| Helmet + CORS | Cabeceras HTTP y orígenes controlados. | HTTP headers and controlled origins. |
+| Prisma | Consultas parametrizadas hacia la base de datos. | Parameterized database queries. |
+| Nginx | Reverse proxy y evidencia de TLS de laboratorio. | Reverse proxy and lab TLS evidence. |
+| `.gitignore` | Exclusión de `.env`, dumps, logs y artefactos generados. | Exclusion of `.env`, dumps, logs, and generated artifacts. |
 
 ---
 
-## 5. Datos Recolectados
+## 7. Derechos del Titular / Data Subject Rights
 
-La plataforma "Ruta 7 Ríos" recolecta los siguientes datos personales según la funcionalidad utilizada:
-
-### 5.1. Registro y Autenticación
-- Nombre completo
-- Correo electrónico institucional
-- Número de documento de identidad
-- Tipo de documento
-- Credenciales de acceso (contraseña cifrada con bcrypt; autenticación LDAP/DA cuando aplique)
-
-### 5.2. Navegación y Uso del Servicio
-- Dirección IP de origen
-- User-Agent del navegador
-- Registros de auditoría (acciones realizadas, timestamps)
-
-### 5.3. Servicios Turísticos
-- Mensajes de contacto (nombre, correo, contenido del mensaje)
-- Preferencias de servicios turísticos consultados
-
----
-
-## 6. Finalidades del Tratamiento
-
-Los datos personales serán utilizados para:
-
-1. Gestionar el registro, autenticación y acceso a la plataforma.
-2. Proveer y administrar los servicios turísticos ofrecidos por el consorcio.
-3. Garantizar la trazabilidad y no repudio mediante registros de auditoría (conforme a las Historias de Usuario HU-70, HU-71 y HU-79 del proyecto).
-4. Atender consultas, peticiones, quejas y reclamos (PQR).
-5. Cumplir con obligaciones legales y requerimientos de autoridades competentes.
-6. Fines estadísticos y académicos internos del proyecto UPB.
-
----
-
-## 7. Autorización del Titular
-
-De conformidad con el artículo 9 de la Ley 1581 de 2012, la recolección de datos personales requiere autorización previa, expresa e informada del titular. Dicha autorización se obtiene mediante:
-
-- Aceptación del formulario de registro en la plataforma web.
-- Consentimiento explícito al momento de enviar mensajes de contacto.
-
-El titular podrá revocar la autorización en cualquier momento, enviando solicitud al correo **privacidad@ruta7rios.co**.
-
----
-
-## 8. Derechos de los Titulares
-
-Conforme al artículo 8 de la Ley 1581 de 2012, los titulares tienen derecho a:
-
-1. **Conocer, actualizar y rectificar** sus datos personales.
-2. **Solicitar prueba** de la autorización otorgada.
-3. **Ser informado** sobre el uso que se ha dado a sus datos.
-4. **Presentar quejas** ante la Superintendencia de Industria y Comercio (SIC) por infracciones a la ley.
-5. **Revocar la autorización** y/o solicitar la **supresión** de los datos cuando no se respeten los principios, derechos y garantías constitucionales y legales.
-6. **Acceder en forma gratuita** a sus datos personales que hayan sido objeto de tratamiento.
-
----
-
-## 9. Medidas de Seguridad
-
-Se implementan las siguientes medidas técnicas y organizativas para proteger los datos personales:
-
-| Medida | Implementación |
+| Español | English |
 |---|---|
-| **Cifrado de contraseñas** | bcrypt con factor de costo 10 |
-| **Autenticación LDAP/DA** | Integración con Active Directory corporativo |
-| **Tokens JWT** | Sesiones con expiración configurable |
-| **HTTPS/TLS** | Certificados SSL en servidor Nginx |
-| **Headers de seguridad** | Helmet (CSP, HSTS, X-Frame-Options, X-Content-Type-Options) |
-| **Sanitización XSS** | Middleware de limpieza de entradas |
-| **Rate Limiting** | Protección contra fuerza bruta en endpoints de autenticación |
-| **Auditoría** | Registro de acciones en base de datos y archivos de log (no repudio) |
-| **Backups** | Respaldo periódico de base de datos y configuraciones críticas |
-| **Control de acceso** | Roles (Admin/Usuario) con guardas de autenticación y autorización |
+| Conocer, actualizar, rectificar o solicitar eliminación de datos. | Know, update, correct, or request deletion of data. |
+| Solicitar información sobre el tratamiento realizado. | Request information about the processing performed. |
+| Revocar autorizaciones cuando aplique. | Revoke authorizations where applicable. |
+| Presentar consultas o reclamos al contacto del proyecto. | Submit questions or complaints to the project contact. |
 
 ---
 
-## 10. Transferencia y Transmisión de Datos
+## 8. Conservación / Retention
 
-Los datos personales podrán ser transmitidos a:
+**ES:** Los datos del prototipo se conservan únicamente durante el ciclo académico y de mantenimiento del repositorio. Las evidencias públicas no deben incluir credenciales, secretos, datos sensibles ni llaves privadas.
 
-- Servidores de base de datos MySQL alojados en infraestructura del proyecto.
-- Servicios de autenticación LDAP/DA dentro de la red WAN corporativa (Track 2).
-
-No se realizará transferencia internacional de datos personales salvo que sea requerido por ley, en cuyo caso se cumplirán los requisitos del Título VII de la Ley 1581 de 2012.
+**EN:** Prototype data is retained only during the academic and repository-maintenance cycle. Public evidence must not include credentials, secrets, sensitive data, or private keys.
 
 ---
 
-## 11. Vigencia de las Bases de Datos
+## 9. Transferencias / Sharing
 
-Las bases de datos serán tratadas durante el tiempo razonable y necesario para cumplir las finalidades del tratamiento, considerando las disposiciones aplicables a la materia de que se trate y los aspectos administrativos, contables, fiscales, jurídicos e históricos de la información.
+**ES:** El proyecto no comercializa datos personales. La información puede compartirse internamente con docentes o integrantes autorizados para revisión académica, soporte técnico y validación de evidencias.
 
----
-
-## 12. Procedimiento para Ejercer Derechos
-
-El titular podrá ejercer sus derechos mediante comunicación dirigida a:
-
-- **Correo electrónico**: privacidad@ruta7rios.co
-- **Asunto**: "Ejercicio de derechos — Datos Personales"
-
-La solicitud deberá contener:
-1. Nombre completo e identificación del titular.
-2. Descripción de los hechos y derechos que desea ejercer.
-3. Dirección de correspondencia y/o correo electrónico para notificaciones.
-4. Documentos que soporten la solicitud (si aplica).
-
-**Plazos de respuesta** (conforme al artículo 15 de la Ley 1581 de 2012):
-- Consultas: máximo **10 días hábiles** (prorrogable por 5 días hábiles adicionales).
-- Reclamos: máximo **15 días hábiles** (prorrogable por 8 días hábiles adicionales).
+**EN:** The project does not sell personal data. Information may be shared internally with teachers or authorized team members for academic review, technical support, and evidence validation.
 
 ---
 
-## 13. Modificaciones
+## 10. Nota Académica / Academic Note
 
-"Ruta 7 Ríos" se reserva el derecho de modificar esta política en cualquier momento. Las modificaciones serán notificadas a los titulares a través de la plataforma web y/o correo electrónico registrado.
+**ES:** Ruta 7 Ríos es un prototipo académico. Antes de convertirlo en un servicio productivo real, se debe ejecutar una revisión legal, de seguridad, retención de datos, consentimiento y continuidad operacional.
 
----
-
-## 14. Contacto
-
-Para cualquier consulta relacionada con esta política:
-
-| Canal | Detalle |
-|---|---|
-| **Correo** | privacidad@ruta7rios.co |
-| **Proyecto académico** | Universidad Pontificia Bolivariana — Seccional Bucaramanga |
-| **Sede operativa** | Santiago de Cali, Valle del Cauca |
-
----
-
-> **Nota**: Este documento tiene carácter académico y forma parte del proyecto integrador de Infraestructura WAN Corporativa (Track 2). En un entorno productivo real, deberá ser revisado por un profesional de derecho especializado en protección de datos personales y registrado ante la Superintendencia de Industria y Comercio (SIC) conforme al Registro Nacional de Bases de Datos (RNBD).
+**EN:** Ruta 7 Ríos is an academic prototype. Before turning it into a real production service, a legal, security, data-retention, consent, and operational-continuity review must be completed.
