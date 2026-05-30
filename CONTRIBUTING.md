@@ -1,137 +1,109 @@
-# Guía de Contribución
+# 🤝 Contribución / Contributing
 
-¡Gracias por tu interés en contribuir a **Turismo Cali — Ruta 7 Ríos**! Este documento describe las convenciones y el proceso para contribuir al proyecto.
-
-## Prerrequisitos
-
-- **Node.js** ≥ 18.17.0
-- **npm** ≥ 9
-- **MySQL** ≥ 8.0
-- Familiaridad con **TypeScript**, **React** y **Express**
-
-## Configuración del Entorno
-
-```bash
-# 1. Fork y clona el repositorio
-git clone https://github.com/TU-USUARIO/Turismo-Cali-UPB.git
-cd Turismo-Cali-UPB
-
-# 2. Instala dependencias (monorepo)
-npm install
-
-# 3. Configura variables de entorno
-cp backend/.env.example backend/.env
-# Edita backend/.env con tus credenciales locales
-
-# 4. Genera el cliente Prisma
-cd backend && npx prisma generate && cd ..
-
-# 5. Inicia en modo desarrollo
-npm run dev
-```
-
-## Flujo de Trabajo
-
-1. Crea una rama desde `develop`:
-   ```bash
-   git checkout -b feature/hu-XX-descripcion-corta
-   ```
-2. Realiza tus cambios siguiendo las convenciones del proyecto.
-3. Ejecuta los tests:
-   ```bash
-   npm run test --workspace=backend
-   npm run test --workspace=frontend
-   ```
-4. Haz commit siguiendo [Conventional Commits](#convención-de-commits).
-5. Abre un Pull Request usando la [plantilla de PR](./.github/PULL_REQUEST_TEMPLATE.md).
-
-## Convención de Commits
-
-Utilizamos [Conventional Commits](https://www.conventionalcommits.org/es/):
-
-```
-<tipo>(alcance opcional): descripción corta
-
-[cuerpo opcional]
-
-[pie(s) opcional(es)]
-```
-
-### Tipos permitidos
-
-| Tipo | Descripción |
-|---|---|
-| `feat` | Nueva funcionalidad |
-| `fix` | Corrección de bug |
-| `docs` | Cambios en documentación |
-| `style` | Formato (sin cambio de lógica) |
-| `refactor` | Refactorización de código |
-| `test` | Agregar o corregir tests |
-| `chore` | Tareas de mantenimiento |
-| `perf` | Mejora de rendimiento |
-| `ci` | Cambios en CI/CD |
-| `infra` | Cambios en infraestructura (Nginx, scripts, red) |
-
-### Ejemplos
-
-```
-feat(landing): agregar sección de servicios turísticos destacados
-fix(auth): corregir fallback LDAP cuando el servidor no responde
-docs(readme): actualizar guía de inicio rápido
-infra(nginx): configurar redirección HTTPS con certificados autofirmados
-test(api): agregar tests para endpoint de contacto
-```
-
-## Convenciones de Código
-
-### General
-
-- **Idioma del código**: Inglés para nombres de variables, funciones y clases.
-- **Idioma de comentarios**: Español (el proyecto es institucional UPB).
-- **Nombres de archivos**: `kebab-case` para archivos y carpetas.
-- **TypeScript**: Tipado estricto, sin `any` salvo justificación.
-
-### Frontend (`frontend/`)
-
-- Componentes funcionales con hooks.
-- Estilos con **Tailwind CSS** (utility-first).
-- Navegación con **React Router**.
-- Cliente HTTP con **Axios**.
-
-### Backend (`backend/`)
-
-- API REST con **Express** + middlewares de seguridad.
-- ORM con **Prisma** (schema declarativo, migraciones versionadas).
-- Autenticación dual: **LDAP** (ldapjs) + **JWT** + **bcrypt** (fallback).
-- DTOs tipados con TypeScript.
-- Logging estructurado con **Winston** + **Morgan**.
-
-## Estructura de Ramas
-
-| Rama | Propósito |
-|---|---|
-| `main` | Rama principal (producción) |
-| `develop` | Integración de features |
-| `feature/hu-XX-*` | Nuevas funcionalidades |
-| `fix/hu-XX-*` | Corrección de bugs |
-| `docs/*` | Cambios de documentación |
-| `infra/*` | Cambios de infraestructura |
-
-## Reporte de Bugs
-
-Utiliza la [plantilla de issues](./.github/ISSUE_TEMPLATE/) para reportar bugs. Incluye:
-
-- Descripción clara del problema.
-- Pasos para reproducir.
-- Comportamiento esperado vs. actual.
-- Capturas de pantalla si aplica.
-
-## Vulnerabilidades de Seguridad
-
-**NO** reportes vulnerabilidades de seguridad como issues públicos. Consulta [SECURITY.md](./SECURITY.md) para el proceso correcto.
+> **ES:** Guía para colaborar sin romper la trazabilidad académica ni la seguridad del repositorio público.
+> **EN:** Guide to contribute without breaking academic traceability or public-repository security.
 
 ---
 
-<div align="center">
-  <sub>🔙 <a href="./README.md">Volver al README principal</a></sub>
-</div>
+## 🧰 Prerrequisitos / Prerequisites
+
+| ES | EN |
+|---|---|
+| Windows 11, Linux o WSL. | Windows 11, Linux, or WSL. |
+| Node.js con `fnm`. | Node.js managed with `fnm`. |
+| Versión recomendada `24.14.0`. | Recommended version `24.14.0`. |
+| MySQL 8 si vas a ejecutar backend completo. | MySQL 8 if you run the full backend. |
+
+```powershell
+fnm use 24.14.0
+npm install
+```
+
+---
+
+## 🌿 Flujo de trabajo / Workflow
+
+```powershell
+git checkout -b feat/hu-XX-descripcion-corta
+fnm use 24.14.0
+npm run dev:frontend
+```
+
+Si tocas backend / If you touch the backend:
+
+```powershell
+fnm use 24.14.0
+Copy-Item backend\.env.example backend\.env
+npm run dev:backend
+```
+
+Antes del PR / Before PR:
+
+```powershell
+fnm use 24.14.0
+npm run build:frontend
+npm run build:backend
+npm audit --audit-level=high
+```
+
+---
+
+## 📝 Commits
+
+Formato / Format:
+
+```text
+<tipo>(<ámbito>): <descripción corta en minúsculas>
+```
+
+| Tipo / Type | ES | EN |
+|---|---|---|
+| `feat` | Nueva funcionalidad. | New feature. |
+| `fix` | Corrección de bug. | Bug fix. |
+| `docs` | Documentación. | Documentation. |
+| `style` | Formato sin cambio funcional. | Formatting without behavior change. |
+| `refactor` | Reorganización interna. | Internal restructuring. |
+| `test` | Pruebas. | Tests. |
+| `chore` | Mantenimiento. | Maintenance. |
+
+Ejemplos / Examples:
+
+```text
+feat(landing): agregar destinos destacados
+fix(auth): corregir fallback local
+docs(readme): actualizar guia bilingue
+chore(frontend): ignorar artefactos generados
+```
+
+---
+
+## 🧑‍💻 Código / Code
+
+| Área / Area | ES | EN |
+|---|---|---|
+| TypeScript | Tipado estricto; evitar `any`. | Strict typing; avoid `any`. |
+| Frontend | Componentes funcionales, Tailwind, accesibilidad. | Functional components, Tailwind, accessibility. |
+| Backend | Express, Prisma, validación y auditoría. | Express, Prisma, validation, and audit logging. |
+| Seguridad | Sin secretos hardcodeados. | No hardcoded secrets. |
+| Docs | Markdown bilingüe para documentos públicos. | Bilingual Markdown for public docs. |
+
+---
+
+## 🛡️ Seguridad antes del PR / Security before PR
+
+- **ES:** No subir `.env`, llaves privadas, dumps ni capturas con credenciales.
+  **EN:** Do not commit `.env`, private keys, dumps, or screenshots with credentials.
+- **ES:** Revisar `git diff --stat` para detectar binarios grandes.
+  **EN:** Review `git diff --stat` to catch large binaries.
+- **ES:** Si tocas Nginx, documenta `nginx -t`, `curl` y logs.
+  **EN:** If you touch Nginx, document `nginx -t`, `curl`, and logs.
+
+---
+
+## ✅ Checklist
+
+- [ ] `fnm use 24.14.0`
+- [ ] Build frontend/backend según alcance / Build frontend/backend as needed
+- [ ] Documentación actualizada / Documentation updated
+- [ ] Sin secretos ni artefactos generados / No secrets or generated artifacts
+- [ ] Conventional Commit válido / Valid Conventional Commit

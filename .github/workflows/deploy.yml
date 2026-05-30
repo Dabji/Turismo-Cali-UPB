@@ -31,7 +31,7 @@ jobs:
       - name: 🔐 Crear .env para Frontend
         run: |
           cd frontend
-          echo "VITE_API_URL=https://turismocali.local/api" > .env
+          echo "VITE_API_URL=https://ruta7rios.page/api" > .env
 
       - name: 🔐 Crear .env para Backend
         env:
@@ -42,10 +42,10 @@ jobs:
           cd backend
           DB_PASSWORD_ENCODED="$(node -p "encodeURIComponent(process.env.DB_PASSWORD)")"
           cat > .env <<'STATIC_EOF'
-          PORT=4000
+          PORT=3001
           NODE_ENV=production
-          CORS_ORIGIN=https://turismocali.local
-          FRONTEND_URL=https://turismocali.local
+          CORS_ORIGIN=https://ruta7rios.page
+          FRONTEND_URL=https://ruta7rios.page
           LDAP_URL=ldap://10.0.3.10:389
           LDAP_BIND_DN=cn=admin,dc=ruta7rios,dc=local
           LDAP_SEARCH_BASE=ou=users,dc=ruta7rios,dc=local
@@ -73,21 +73,22 @@ jobs:
       # --- DESPLIEGUE FINAL ---
       - name: 🚀 Desplegar Frontend (Nginx)
         run: |
-          rm -rf /var/www/turismocali/frontend/dist/*
-          cp -r frontend/dist/* /var/www/turismocali/frontend/dist/
+          mkdir -p /var/www/ruta7rios
+          rm -rf /var/www/ruta7rios/*
+          cp -r frontend/dist/* /var/www/ruta7rios/
 
       - name: 🔄 Reiniciar Backend (PM2)
         run: |
           cd backend
-          pm2 reload ecosystem.config.js --env production \
-            || pm2 start ecosystem.config.js --env production
+          pm2 reload cali-backend \
+            || pm2 start dist/server.js --name cali-backend
           pm2 save
 
       - name: ✅ Health Check
         run: |
           sleep 10
-          curl --fail --silent --max-time 10 http://localhost:4000/api/health \
-            || { echo "⚠️ Health check falló — verificar logs con: pm2 logs turismo-backend"; exit 1; }
+          curl --fail --silent --max-time 10 http://localhost:3001/api/health \
+            || { echo "⚠️ Health check falló — verificar logs con: pm2 logs cali-backend"; exit 1; }
 
       - name: 🧹 Limpiar secretos del workspace
         if: always()

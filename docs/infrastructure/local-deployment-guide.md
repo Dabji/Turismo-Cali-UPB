@@ -1,24 +1,32 @@
-# Guía de Despliegue Local — HTTPS + Nginx
+# 🧪 Guía de Despliegue Local / Local Deployment Guide
 
-**Turismo Cali — Consorcio "Ruta 7 Ríos"**
-**HU-70: Landing Page HTTPS · HU-79: Certificados SSL Autofirmados**
+**Turismo Cali — Consorcio "Ruta 7 Ríos" / "Ruta 7 Ríos" Tourism Consortium**
+**HU-70: HTTPS Landing Page · HU-79: Self-Signed SSL Certificates**
 
 ---
 
-## Objetivo
+## 🎯 Objetivo / Objective
 
-Esta guía permite al desarrollador probar **en su máquina local** (Linux/Ubuntu/WSL) que el stack completo funciona antes de desplegarlo en las Máquinas Virtuales del laboratorio (Track 2 WAN):
+**ES:** Esta guía permite probar **en una máquina local** (Linux/Ubuntu/WSL) que el stack completo funciona antes de desplegarlo en las máquinas virtuales del laboratorio Track 2 WAN.
 
-- Build de producción del frontend React/Vite.
-- Certificados SSL autofirmados.
-- Nginx como reverse proxy con HTTPS.
-- Backend Express corriendo en modo producción.
+**EN:** This guide helps validate **on a local machine** (Linux/Ubuntu/WSL) that the full stack works before deploying it to the Track 2 WAN lab virtual machines.
+
+| ES | EN |
+|---|---|
+| Build de producción del frontend React/Vite. | Production build of the React/Vite frontend. |
+| Certificados SSL autofirmados. | Self-signed SSL certificates. |
+| Nginx como reverse proxy con HTTPS. | Nginx as an HTTPS reverse proxy. |
+| Backend Express corriendo en modo producción. | Express backend running in production mode. |
 
 > **Nota**: Todos los comandos asumen un entorno Linux (Ubuntu 22.04 o WSL2 en Windows). Si usas WSL, asegúrate de que Nginx esté instalado dentro de WSL, no en Windows.
+>
+> Para el despliegue real usado en la entrega (`ruta7rios.page`, Tailscale, Nginx 1.26.3 y certificado autofirmado), consulta [lab-deployment.md](./lab-deployment.md).
+>
+> En comandos de Node.js, usa primero `fnm use 24.14.0` si tu entorno tiene `fnm`.
 
 ---
 
-## Prerrequisitos
+## 🧰 Prerrequisitos / Prerequisites
 
 ```bash
 # Verificar que tienes las herramientas necesarias
@@ -44,6 +52,7 @@ Desde la **raíz del monorepo**:
 
 ```bash
 # Instalar dependencias (si no lo has hecho)
+fnm use 24.14.0
 npm install
 
 # Compilar el frontend (React + Vite → frontend/dist/)
@@ -103,6 +112,8 @@ sudo chmod -R 755 /var/www/turismocali
 
 ### 3.2. Instalar la configuración de Nginx
 
+> **Importante**: `infraestructura/nginx.conf` esta alineado con el despliegue de laboratorio (`ruta7rios.page`, `/var/www/ruta7rios`, backend `127.0.0.1:3001`). Para una prueba local con `turismocali.local`, usalo como plantilla y ajusta `server_name`, rutas de certificado, `root` y `proxy_pass` antes de habilitarlo.
+
 ```bash
 # Copiar nuestra configuración al directorio de Nginx
 sudo cp infraestructura/nginx.conf /etc/nginx/sites-available/turismocali
@@ -142,6 +153,7 @@ echo "127.0.0.1 turismocali.local www.turismocali.local" | sudo tee -a /etc/host
 
 ```bash
 cd backend
+fnm use 24.14.0
 
 # Copiar el archivo de ejemplo (si no lo has hecho)
 cp .env.example .env
@@ -200,6 +212,7 @@ Para mantener el backend corriendo en segundo plano (producción):
 
 ```bash
 # Opción A: usando PM2 (recomendado para producción)
+fnm use 24.14.0
 npm install -g pm2
 pm2 start dist/server.js --name turismo-backend
 pm2 save
@@ -319,6 +332,7 @@ hostname -I
 # === Desde la raíz del monorepo ===
 
 # 1. Build frontend
+fnm use 24.14.0
 npm run build --workspace=frontend
 
 # 2. Certificado SSL
@@ -328,6 +342,7 @@ sudo openssl req -x509 -nodes -days 365 -newkey rsa:2048 \
   -subj "/C=CO/ST=Valle del Cauca/L=Cali/O=Ruta 7 Rios/CN=turismocali.local"
 
 # 3. Copiar build y config de Nginx
+# Nota: adaptar infraestrutura/nginx.conf si se usa turismocali.local.
 sudo mkdir -p /var/www/turismocali/frontend/dist
 sudo cp -r frontend/dist/* /var/www/turismocali/frontend/dist/
 sudo cp infraestructura/nginx.conf /etc/nginx/sites-available/turismocali
@@ -340,6 +355,7 @@ sudo nginx -t && sudo systemctl restart nginx
 
 # 5. Backend en producción
 cd backend
+fnm use 24.14.0
 npx prisma generate
 npx prisma migrate dev --name init
 npm run build

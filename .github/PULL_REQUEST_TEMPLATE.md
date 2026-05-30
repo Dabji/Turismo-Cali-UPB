@@ -1,57 +1,66 @@
-## 📦 Pull Request
+## 📦 Pull Request / Solicitud de Cambios
 
-### 🔗 Related Issue / Issue Relacionada
-<!-- Link the user story or issue this PR addresses / Enlace a la historia de usuario o issue que resuelve -->
+### 🔗 Issue Relacionado / Related Issue
+
 Closes #
 
 ---
 
-### 📝 Description / Descripción
-<!-- Brief summary of the changes / Resumen breve de los cambios -->
+### 📝 Descripción / Description
 
-
----
-
-### 🔄 Type of Change / Tipo de Cambio
-<!-- Check the one that applies / Marque el que aplique -->
-- [ ] ✨ New feature / Nueva funcionalidad
-- [ ] 🐛 Bug fix / Corrección de error
-- [ ] ♻️ Refactor / Refactorización
-- [ ] 📝 Documentation / Documentación
-- [ ] 🧪 Tests
-- [ ] 🔧 Configuration / Configuración
-- [ ] 🏗️ Infrastructure / Infraestructura (Nginx, scripts, red WAN)
+**ES:** Resume el cambio, la razón técnica y el impacto visible para Ruta 7 Ríos.
+**EN:** Summarize the change, the technical reason, and the visible impact for Ruta 7 Ríos.
 
 ---
 
-### 🧩 Affected Components / Componentes Afectados
-<!-- Check all that apply / Marque todos los que apliquen -->
-- [ ] Backend (Express + Prisma)
+### 🎯 Alcance / Scope
+
+- [ ] ✨ Nueva funcionalidad / New feature
+- [ ] 🐛 Corrección / Bug fix
+- [ ] ♻️ Refactorización / Refactor
+- [ ] 📝 Documentación / Documentation
+- [ ] 🧪 Pruebas / Tests
+- [ ] 🔧 Configuración / Configuration
+- [ ] 🏗️ Infraestructura / Infrastructure
+- [ ] 🌐 Evidencia de red / Network evidence
+
+---
+
+### 🧩 Componentes Afectados / Affected Components
+
 - [ ] Frontend (React + Vite)
-- [ ] Database (MySQL)
-- [ ] Infrastructure (Nginx / Scripts / Certs)
-- [ ] Network / WAN (LDAP, VoIP, Proxy, DNS)
-- [ ] CI/CD / Workflows
+- [ ] Backend (Express + Prisma)
+- [ ] Base de datos / Database
+- [ ] Infraestructura / Infrastructure
+- [ ] Red WAN / WAN network
+- [ ] CI/CD
+- [ ] Documentación / Documentation
 
 ---
 
-### ✅ Checklist Before Review / Lista de Verificación Antes de Revisión
-<!-- Check all that apply / Marque todos los que apliquen -->
-- [ ] My code follows the project style guidelines / Mi código sigue las guías de estilo del proyecto
-- [ ] I have performed a self-review / He realizado una auto-revisión
-- [ ] I have added/updated tests / He agregado/actualizado tests
-- [ ] All tests pass locally / Todos los tests pasan localmente
-- [ ] I have updated the documentation if needed / He actualizado la documentación si es necesario
-- [ ] No new warnings or errors are introduced / No se introducen nuevos warnings o errores
+### ✅ Checklist de Revisión / Review Checklist
+
+- [ ] ES: Ejecuté `fnm use 24.14.0` antes de scripts Node.js.
+- [ ] EN: I ran `fnm use 24.14.0` before Node.js scripts.
+- [ ] ES: El build o prueba aplicable pasa localmente.
+- [ ] EN: The applicable build or test passes locally.
+- [ ] ES: Actualicé documentación bilingüe si cambió el comportamiento.
+- [ ] EN: I updated bilingual documentation if behavior changed.
+- [ ] ES: No agregué `.env`, llaves, dumps ni secretos.
+- [ ] EN: I did not add `.env`, keys, dumps, or secrets.
+- [ ] ES: Revisé `git diff --stat` para detectar binarios accidentales.
+- [ ] EN: I reviewed `git diff --stat` for accidental binaries.
 
 ---
 
-### 🖼️ Screenshots / Capturas de Pantalla
-<!-- If applicable, add screenshots / Si aplica, agregue capturas de pantalla -->
+### 🖼️ Capturas o Evidencias / Screenshots or Evidence
 
+**ES:** Adjunta capturas si el cambio toca UI, despliegue, Lighthouse, Nginx, proxy o evidencia visual.
+**EN:** Attach screenshots if the change touches UI, deployment, Lighthouse, Nginx, proxy, or visual evidence.
 
 ---
 
-### 📎 Additional Notes / Notas Adicionales
-<!-- Any extra context for the reviewers / Cualquier contexto extra para los revisores -->
+### 📎 Notas Adicionales / Additional Notes
 
+**ES:** Riesgos, pendientes, decisiones relevantes o validaciones que no se pudieron ejecutar.
+**EN:** Risks, follow-ups, relevant decisions, or validations that could not be executed.
