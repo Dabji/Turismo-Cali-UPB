@@ -35,7 +35,7 @@
     "@types/bcryptjs": "^2.4.6",
     "@types/ldapjs": "^2.2.5",
     "@types/morgan": "^1.9.9",
-    "@types/node": "^20.10.0",
+    "@types/node": "^25.9.1",
     "prisma": "^5.7.0"
   }
 }
