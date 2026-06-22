@@ -25,7 +25,7 @@ jobs:
 
     steps:
       - name: 📥 Descargar último código
-        uses: actions/checkout@v4
+        uses: actions/checkout@v7
 
       # --- INYECCIÓN DE VARIABLES Y SECRETOS ---
       - name: 🔐 Crear .env para Frontend
