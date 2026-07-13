@@ -21,7 +21,7 @@
     "bcryptjs": "^2.4.3",
     "ldapjs": "^3.0.7",
     "winston": "^3.11.0",
-    "morgan": "^1.10.0",
+    "morgan": "^1.11.0",
     "express-rate-limit": "^7.1.4",
     "@prisma/client": "^5.7.0"
   },
