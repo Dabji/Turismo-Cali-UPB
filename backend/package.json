@@ -22,7 +22,7 @@
     "ldapjs": "^3.0.7",
     "winston": "^3.11.0",
     "morgan": "^1.10.0",
-    "express-rate-limit": "^7.1.4",
+    "express-rate-limit": "^8.6.2",
     "@prisma/client": "^5.7.0"
   },
   "devDependencies": {
